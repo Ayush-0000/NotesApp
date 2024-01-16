@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="hintcolor">#777777</color>
+    <color name="brondark">#312222</color>
+    <color name="Notecolor1">#FF6263</color>
+    <color name="Notecolor2">#23C4ED</color>
+    <color name="Notecolor3">#38CC77</color>
+    <color name="yellow">#D9D558</color>
+    <color name="Notecolor5">#318DB1</color>
+    <color name="Noteccoool">#FFAF9D9D</color>
+    <color name="orange">#ed5f1e</color>
+    <color name="Notecolor4">#FAE6FA</color>
+    <color name="Notecolor11">#ADEBAD</color>
+    <color name="Notecolor6">#FFFF99</color>
+    <color name="Notecolor7">#C2D1FF</color>
+    <color name="Notecolor8">#FF9999</color>
+    <color name="Notecolor9">#ACE7FF</color>
+    <color name="Notecolor10">#E7FFAC</color>
+
+</resources>
