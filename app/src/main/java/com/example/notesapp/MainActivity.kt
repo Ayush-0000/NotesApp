@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         getImageContent.launch(intent)
     }
 
-    // Inside handleImageSelection function
+
     private fun handleImageSelection(uri: android.net.Uri) {
         try {
             val inputStream = contentResolver.openInputStream(uri)
@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         )
     }
 
-    // Function to convert Bitmap to ByteArray
+
     private fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray {
         val outputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)

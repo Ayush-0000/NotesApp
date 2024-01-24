@@ -133,7 +133,7 @@ class NotesAdapter(
         return list.random()
     }
 
-    // Add this function to set the initial colors for all notes
+
     private fun setInitialColors() {
         noteColors.clear()
         for (note in fullList) {

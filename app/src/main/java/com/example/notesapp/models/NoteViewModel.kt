@@ -185,7 +185,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
                     }
                 }
 
-                // Update the local LiveData with the fetched notes
+
                 updateLocalNotesList(notesList)
             }
         }

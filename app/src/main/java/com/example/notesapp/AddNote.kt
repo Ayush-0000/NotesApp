@@ -85,7 +85,7 @@ class AddNote : AppCompatActivity() {
                     )
                 }
 
-                // Use ViewModel to insert or update note with image
+
 //                if (isUpdate) {
 //                    viewModel.updateNoteWithImage(note, selectedImage)
 //                } else {
