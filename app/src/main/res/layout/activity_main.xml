@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".">
+    tools:context="your_package_name.MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fb_add_note"
@@ -16,6 +16,17 @@
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_add_image_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="26dp"
+        android:clickable="true"
+        android:src="@drawable/add_image"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/fb_add_note" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -42,9 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-    </SearchView>
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/SignOutButton"
@@ -82,4 +91,94 @@
         app:layout_constraintHorizontal_bias="0.256"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".">-->
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fb_add_note"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="26dp"-->
+<!--        android:layout_marginBottom="26dp"-->
+<!--        android:clickable="true"-->
+<!--        android:src="@android:drawable/ic_input_add"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view"-->
+<!--        android:layout_width="385dp"-->
+<!--        android:layout_height="637dp"-->
+<!--        android:layout_marginTop="152dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.935"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:listitem="@layout/list_item" />-->
+
+<!--    <SearchView-->
+<!--        android:id="@+id/searchView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:layout_marginTop="75dp"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:elevation="8dp"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        android:queryHint="Search Notes.."-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/recycler_view"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="1.0">-->
+
+<!--    </SearchView>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/SignOutButton"-->
+<!--        android:layout_width="98dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Sign Out"-->
+<!--        android:textSize="9sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.993"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="107dp"-->
+<!--        android:layout_height="65dp"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/SignOutButton"-->
+<!--        app:layout_constraintHorizontal_bias="0.052"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/note_icon" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="182dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_marginStart="150dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="184dp"-->
+<!--        android:text="Your Notes"-->
+<!--        android:textSize="33sp"-->
+<!--        android:textStyle="bold|italic"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/SignOutButton"-->
+<!--        app:layout_constraintHorizontal_bias="0.256"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

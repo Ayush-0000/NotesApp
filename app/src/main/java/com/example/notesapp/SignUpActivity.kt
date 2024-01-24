@@ -48,9 +48,12 @@ class SignUpActivity : AppCompatActivity() {
                             startActivity(Intent(this, LoginActivity::class.java))
                             finish()
                         }
-                        else{
-                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
-                        }
+//                        else{
+//                            Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+//                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     }
 
 

@@ -54,11 +54,15 @@ dependencies {
 
    implementation("com.google.firebase:firebase-auth:22.3.0")
     implementation("com.google.firebase:firebase-firestore:24.10.0")
+    implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     val room_version = "2.6.1"
 
     implementation ("androidx.room:room-ktx:$room_version")
     implementation ("androidx.room:room-runtime:$room_version")
     kapt ("androidx.room:room-compiler:$room_version")
+
+
+
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")

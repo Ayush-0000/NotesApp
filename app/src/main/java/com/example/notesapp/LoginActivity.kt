@@ -1,10 +1,13 @@
 package com.example.notesapp
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.notesapp.databinding.ActivityLoginBinding
+import com.example.notesapp.models.NoteViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -13,12 +16,18 @@ class LoginActivity : AppCompatActivity() {
         ActivityLoginBinding.inflate(layoutInflater)
     }
     private lateinit var auth: FirebaseAuth
-
+    private lateinit var viewModel: NoteViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        ).get(NoteViewModel::class.java)
+
 
         binding.loginButton.setOnClickListener {
             val userName = binding.userName.text.toString().trim()
@@ -31,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this, "Sign In Successful", Toast.LENGTH_SHORT).show()
+                            viewModel.getAllNotesFromFirestore()
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
@@ -49,7 +59,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser: FirebaseUser? = auth.currentUser
+
         if (currentUser != null) {
+
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
