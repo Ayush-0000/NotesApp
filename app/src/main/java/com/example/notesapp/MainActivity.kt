@@ -133,9 +133,9 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 
         return Note(
             id = null,
-            title = "title", // Replace with your title logic
-            note = "note", // Replace with your note logic
-            date = "date", // Replace with your date logic
+            title = "title",
+            note = "note",
+            date = "date",
             image = imageByteArray
         )
     }
