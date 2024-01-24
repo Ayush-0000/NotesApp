@@ -35,7 +35,10 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(note)
+        note.id?.let { deleteNoteFromFirestore(it.toLong()) }
+
     }
+
 
     fun insertNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(note)
@@ -46,28 +49,65 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         repository.update(note)
         saveNoteToFirestore(note)
     }
+    private fun deleteNoteFromFirestore(noteId: Long) {
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
 
-    fun insertNoteWithImage(note: Note, image: Bitmap?) = viewModelScope.launch(Dispatchers.IO) {
-        // Convert the Bitmap image to ByteArray using your converter or utility class
-        val imageByteArray = convertBitmapToByteArray(image)
+        user?.let {
+            val userUid = it.uid
+            val firestore = FirebaseFirestore.getInstance()
+            val userCollection = firestore.collection("users").document(userUid)
+            val notesCollection = userCollection.collection("notes")
+            val noteref = notesCollection.document(noteId.toString())
 
-        // Update the note's image property
-      //  note.image = imageByteArray//
-
-        repository.insert(note)
-        saveNoteToFirestore(note)
+            noteref
+                .delete()
+                .addOnSuccessListener {
+                    Toast.makeText(getApplication(), "Note deleted from Firestore", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        getApplication(),
+                        "Failed to delete note from Firestore: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
     }
+//    fun insertNoteWithImage(note: Note, image: Bitmap?) = viewModelScope.launch(Dispatchers.IO) {
+//        // Convert the Bitmap image to ByteArray using your converter or utility class
+//        val imageByteArray = convertBitmapToByteArray(image)
+//
+//        // Create a new Note object and update its image property
+//        val noteWithImage = Note(
+//            id = note.id,
+//            title = "Selected image",
+//            note = "Do not click",
+//            date = " ",
+//            image = imageByteArray
+//        )
+//
+//        repository.insertNoteWithImage(noteWithImage)
+//        saveNoteToFirestore(noteWithImage)
+//    }
 
-    fun updateNoteWithImage(note: Note, image: Bitmap?) = viewModelScope.launch(Dispatchers.IO) {
-        // Convert the Bitmap image to ByteArray using your converter or utility class
-        val imageByteArray = convertBitmapToByteArray(image)
+//    fun updateNoteWithImage(note: Note, image: Bitmap?) = viewModelScope.launch(Dispatchers.IO) {
+//        // Convert the Bitmap image to ByteArray using your converter or utility class
+//        val imageByteArray = convertBitmapToByteArray(image)
+//
+//        // Create a new Note object and update its image property
+//        val noteWithImage = Note(
+//            id = note.id,
+//            title = "Selected image",
+//            note = "Do not click",
+//            date = " ",
+//            image = imageByteArray
+//        )
+//
+//        repository.updateNoteWithImage(noteWithImage)
+//        saveNoteToFirestore(noteWithImage)
+//    }
 
-        // Update the note's image property
-       // note.image = imageByteArray//
 
-        repository.update(note)
-        saveNoteToFirestore(note)
-    }
 
 
     private fun convertBitmapToByteArray(bitmap: Bitmap?): ByteArray? {
@@ -166,7 +206,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-
+////working code
 //package com.example.notesapp.models
 //
 //import android.app.Application
@@ -244,6 +284,24 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 //            Toast.makeText(getApplication(), "User not authenticated", Toast.LENGTH_SHORT).show()
 //        }
 //    }
+//    private fun deleteNoteFromFirestore(firestoreDocumentId: String) {
+//        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+//
+//        if (user != null) {
+//            val userUid = user.uid
+//            val firestore = FirebaseFirestore.getInstance()
+//            val userCollection = firestore.collection("users").document(userUid)
+//            val notesCollection = userCollection.collection("notes")
+//
+//            notesCollection.document(firestoreDocumentId).delete()
+//                .addOnSuccessListener {
+//                    // Handle success if needed
+//                }
+//                .addOnFailureListener { e ->
+//                    // Handle failure if needed
+//                }
+//        }
+//    }
 //    fun getAllNotesFromFirestore() {
 //        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
 //
@@ -291,9 +349,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 //    }
 //
 //}
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+

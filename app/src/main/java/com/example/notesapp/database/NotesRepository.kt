@@ -13,15 +13,16 @@ class NotesRepository(private val noteDao: NoteDao) {
 
     suspend fun delete(note: Note) {
         noteDao.delete(note)
+
     }
 
     suspend fun deleteAllNotes() {
         noteDao.deleteAllNotes()
     }
 
-//    suspend fun update(note: Note) {
-//        noteDao.update(note.id, note.title,note)
-//    }
+    suspend fun update(note: Note) {
+        noteDao.update(note.id, note.title,note.note, note.image)
+    }
 
     suspend fun updateNotesFromFirestore(notesList: List<Note>) {
         noteDao.deleteAllNotes()
@@ -38,7 +39,7 @@ class NotesRepository(private val noteDao: NoteDao) {
 }
 
 
-
+//working code
 //package com.example.notesapp.database
 //
 //import androidx.lifecycle.LiveData
@@ -53,6 +54,8 @@ class NotesRepository(private val noteDao: NoteDao) {
 //
 //    suspend fun delete(note: Note) {
 //        noteDao.delete(note)
+//
+//
 //    }
 //    suspend fun deleteAllNotes(){
 //    noteDao.deleteAllNotes()

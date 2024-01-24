@@ -1,6 +1,7 @@
 package com.example.notesapp.adapter
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesapp.R
 import com.example.notesapp.models.Note
+import com.example.notesapp.utility.Converters
 
 class NotesAdapter(
     private val context: Context,
@@ -54,12 +56,13 @@ class NotesAdapter(
         holder.date.text = currentNote.date
         holder.date.isSelected = true
 
-        // Check if the note has an image
+
         if (currentNote.image != null) {
             holder.imageView.visibility = View.VISIBLE
-           // holder.imageView.setImageBitmap(currentNote.image)
+            val bitmap = BitmapFactory.decodeByteArray(currentNote.image, 0, currentNote.image!!.size)
+            holder.imageView.setImageBitmap(bitmap)
         } else {
-            // If no image, hide the ImageView
+
             holder.imageView.visibility = View.GONE
         }
 
@@ -83,6 +86,8 @@ class NotesAdapter(
         }
     }
 
+
+
     fun updateList(newList: List<Note>) {
         fullList.clear()
         fullList.addAll(newList)
@@ -91,7 +96,6 @@ class NotesAdapter(
         notesList.addAll(fullList)
         notesList.reverse()
 
-        // Set the initial colors when updating the list
         setInitialColors()
 
         notifyDataSetChanged()
@@ -146,7 +150,7 @@ class NotesAdapter(
 
 
 
-
+////working code
 //package com.example.notesapp.adapter
 //
 //import android.content.Context
@@ -283,4 +287,4 @@ class NotesAdapter(
 //        fun onLongItemClicked(note: Note, cardView: CardView)
 //    }
 //}
-
+//

@@ -9,9 +9,12 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.notesapp.databinding.ActivityAddNoteBinding
 import com.example.notesapp.models.Note
+import com.example.notesapp.models.NoteViewModel
 import com.example.notesapp.utility.Converters
+import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,6 +43,9 @@ class AddNote : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // Inside onCreate method
+        val viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+
 
         try {
             oldNote = intent.getSerializableExtra("current_note") as Note
@@ -59,17 +65,32 @@ class AddNote : AppCompatActivity() {
 
                 note = if (isUpdate) {
                     // Ensure selectedImage is not null before calling fromBitmap
-                    val imageByteArray = selectedImage?.let { Converters.fromBitmap(it) }
+                    val imageByteArray: ByteArray? = selectedImage?.let { bitmap ->
+                        val stream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                        stream.toByteArray()
+                    }
                     Note(
                         oldNote.id, title, noteDesc, formatter.format(Date()), imageByteArray
                     )
                 } else {
                     // Ensure selectedImage is not null before calling fromBitmap
-                    val imageByteArray = selectedImage?.let { Converters.fromBitmap(it) }
+                    val imageByteArray: ByteArray? = selectedImage?.let { bitmap ->
+                        val stream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                        stream.toByteArray()
+                    }
                     Note(
                         null, title, noteDesc, formatter.format(Date()), imageByteArray
                     )
                 }
+
+                // Use ViewModel to insert or update note with image
+//                if (isUpdate) {
+//                    viewModel.updateNoteWithImage(note, selectedImage)
+//                } else {
+//                    viewModel.insertNoteWithImage(note, selectedImage)
+//                }
 
                 val intent = Intent()
                 intent.putExtra("note", note)
@@ -80,19 +101,14 @@ class AddNote : AppCompatActivity() {
             }
         }
 
+
         binding.imgBackArrow.setOnClickListener {
             onBackPressed()
         }
 
-        binding.btnAddImage.setOnClickListener {
-            openImagePicker()
-        }
+
     }
 
-    private fun openImagePicker() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        getContent.launch(intent)
-    }
 }
 
 
@@ -101,7 +117,7 @@ class AddNote : AppCompatActivity() {
 
 
 
-//
+//working
 //package com.example.notesapp
 //
 //import android.app.Activity

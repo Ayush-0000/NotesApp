@@ -80,9 +80,26 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         val currentUser = auth1.currentUser
 
         currentUser?.let { user ->
-            binding.fbAddNote.setOnClickListener {
+            binding.fbAddImageNote.setOnClickListener {
                 openImageSelection()
             }
+        }
+        currentUser?.let { user ->
+        val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val note = result.data?.getSerializableExtra("note") as? Note
+                if (note != null) {
+                    viewModel.insertNote(note)
+                }
+            }
+        }
+            binding.fbAddNote.setOnClickListener {
+                val intent = Intent(this, AddNote::class.java)
+
+
+                getContent.launch(intent)
+            }
+
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -133,9 +150,9 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 
         return Note(
             id = null,
-            title = "title",
-            note = "note",
-            date = "date",
+            title = "Selected image",
+            note = "Do not click",
+            date = " ",
             image = imageByteArray
         )
     }
@@ -148,12 +165,7 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
     }
 
 
-    override fun onItemClicked(note: Note) {
-        val intent = Intent(this@MainActivity, AddNote::class.java)
-        intent.putExtra("current_note", note)
-        //updateNote.launch(intent)
 
-    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -173,7 +185,6 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 
     private fun popUpDisplay(cardView: CardView) {
         Log.d("PopupMenu", "popUpDisplay called")
-        Toast.makeText(this, "clicked now", Toast.LENGTH_SHORT).show()
         val popup = PopupMenu(this, cardView)
         popup.menuInflater.inflate(R.menu.pop_up_menu, popup.menu)
 
@@ -189,10 +200,18 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
         when (item?.itemId) {
             R.id.delete_note -> {
                 viewModel.deleteNote(selectedNote)
+
                 return true
             }
+
         }
+
         return false
+    }
+    override fun onItemClicked(note: Note) {
+        val intent = Intent(this@MainActivity, AddNote::class.java)
+        intent.putExtra("current_note", note)
+        startActivityForResult(intent, UPDATE_NOTE_REQUEST_CODE)
     }
 
     private fun signOut() {
@@ -205,7 +224,7 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 
 
 
-
+//working code
 //package com.example.notesapp
 //
 //import com.example.notesapp.models.NoteViewModel
@@ -295,6 +314,8 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 //        }
 //            binding.fbAddNote.setOnClickListener {
 //                val intent = Intent(this, AddNote::class.java)
+//
+//
 //                getContent.launch(intent)
 //            }
 //
@@ -371,4 +392,4 @@ class MainActivity : AppCompatActivity(), NotesAdapter.NotesClickListener, Popup
 ////        finish()
 ////    }
 //}
-//
+
