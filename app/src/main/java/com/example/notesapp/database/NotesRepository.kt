@@ -1,5 +1,6 @@
 package com.example.notesapp.database
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.example.notesapp.models.Note
 
@@ -13,6 +14,7 @@ class NotesRepository(private val noteDao: NoteDao) {
 
     suspend fun delete(note: Note) {
         noteDao.delete(note)
+
 
     }
 

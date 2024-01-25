@@ -18,6 +18,11 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+
+
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: NotesRepository
@@ -35,6 +40,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(note)
+
         note.id?.let { deleteNoteFromFirestore(it.toLong()) }
 
     }
